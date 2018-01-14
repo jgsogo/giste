@@ -1,25 +1,28 @@
 
-project(Giste)
 cmake_minimum_required(VERSION 2.8.12)
 
-file(GLOB interface_SRC engine.h) # TODO: enumerate interface files
-file(GLOB headers_SRC "*.h" "*.hpp")
-file(GLOB impl_SRC "*.cpp")
+set(LIBRARY_NAME engine)
+file(GLOB interface_SRC config.h)
 
-add_library(engine ${impl_SRC} ${headers_SRC})
-generate_export_header(engine)
-set_target_properties(engine PROPERTIES 
+## Common for every library
+file(GLOB all_sources "*.h" "*.hpp" "*.cpp")
+
+get_filename_component(LIBRARY_DIRNAME ${CMAKE_CURRENT_LIST_DIR} NAME)
+
+add_library(${LIBRARY_NAME} ${all_sources})
+target_link_libraries(${APP_NAME} core)
+generate_export_header(${LIBRARY_NAME})
+set_target_properties(${LIBRARY_NAME} PROPERTIES 
                       LINKER_LANGUAGE CXX
                       PUBLIC_HEADER "${interface_SRC}")
-target_include_directories(engine PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
-target_link_libraries(engine core)
+target_include_directories(${LIBRARY_NAME} PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
 
-install(TARGETS engine
+install(TARGETS ${LIBRARY_NAME}
         ARCHIVE DESTINATION lib
+        LIBRARY  DESTINATION lib
         RUNTIME DESTINATION bin
-        PUBLIC_HEADER DESTINATION include/engine)
+        PUBLIC_HEADER DESTINATION include/${LIBRARY_DIRNAME})
 
-if(BUILD_CLI)
-	add_subdirectory(cli)
-endif()
 
+# CLI
+add_subdirectory(cli)

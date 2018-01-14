@@ -1,6 +1,5 @@
 
-
-project(Giste)
+project(giste)
 cmake_minimum_required(VERSION 2.8.12)
 
 # Require C++14 (at least)
@@ -23,11 +22,14 @@ set_property(GLOBAL PROPERTY USE_FODERS ON)
 # Global configuration
 # add_definitions(-Wfatal-errors)
 
+# Options
+option(BUILD_CLI "Build command line interfaces" ON)
+option(BUILD_TEST "Build tests for project" OFF)
+
 # All sources will be under this directory ('src')
 include_directories("${CMAKE_CURRENT_LIST_DIR}/src")
 add_subdirectory(src)
 
-option(BUILD_TEST "Build tests for Giste project" OFF)
 if(BUILD_TEST)
 	enable_testing()
 	if (UNIX)

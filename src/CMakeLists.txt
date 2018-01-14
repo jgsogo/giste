@@ -1,6 +1,4 @@
 
-option(BUILD_CLI "Build command line interfaces" ON)
-
 include(GenerateExportHeader)
 
 # Core
