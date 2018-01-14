@@ -13,7 +13,14 @@ class GisteRecipe(ConanFile):
     generators = "cmake"
 
     def requirements(self):
-        self.requires.add("Boost/1.64.0@conan/stable")
+        # TODO: Handle this options
+        cli = True
+        tests = True
+        if cli:
+            self.requires.add("Boost.Program_Options/1.65.1@bincrafters/stable")
+            self.requires.add("Boost.System/1.65.1@bincrafters/stable")
+            self.requires.add("Boost.Filesystem/1.65.1@bincrafters/stable")
+            self.requires.add("yaml-cpp/0.5.3@bincrafters/stable")
 
     def source(self):
         pass

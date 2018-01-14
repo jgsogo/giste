@@ -13,15 +13,19 @@ add_compile_options(-std=c++14) # CMake 2.8.12 or newer
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
+# Install prefix
+set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_LIST_DIR}/install" CACHE INTERNAL "Default path to install")
+message(STATUS "Installation folder is '${CMAKE_INSTALL_PREFIX}'")
+
 # Files in subdirectories (Visual Studio IDE)
 set_property(GLOBAL PROPERTY USE_FODERS ON)
 
 # Global configuration
-add_definitions(-Wfatal-errors)
+# add_definitions(-Wfatal-errors)
 
 # All sources will be under this directory ('src')
-add_subdirectory(src)
 include_directories("${CMAKE_CURRENT_LIST_DIR}/src")
+add_subdirectory(src)
 
 option(BUILD_TEST "Build tests for Giste project" OFF)
 if(BUILD_TEST)
