@@ -28,6 +28,8 @@ namespace giste { namespace core {
 			pipeline_t build(const std::string& id) const;
 
 		protected:
+			friend __declspec(dllexport) std::shared_ptr<Plugin> instantiate();
+
 			Version _version;
 			std::map<std::string, pipeline_t> _pipelines;
 	};

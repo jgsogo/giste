@@ -11,7 +11,9 @@
 namespace giste { namespace core {
 
 	PluginHandler::PluginHandler() {}
-	PluginHandler::~PluginHandler() {}
+	PluginHandler::~PluginHandler()
+	{
+	}
 
 	void PluginHandler::load(const std::string& directory)
 	{
@@ -22,7 +24,6 @@ namespace giste { namespace core {
 		}
 
 		// Go ahead for everyfile in dir
-		typedef std::shared_ptr<Plugin>(pluginapi_create_t)();
 		boost::function<pluginapi_create_t> creator;
 
 		for (auto& entry : boost::make_iterator_range(boost::filesystem::directory_iterator(directory), {}))
@@ -32,12 +33,12 @@ namespace giste { namespace core {
 				"instantiate",                                       // symbol to import
 				boost::dll::load_mode::append_decorations            // do append extensions and prefixes
 				);
+			_plugins.push_back(creator);
 
 			std::shared_ptr<Plugin> plugin = creator();
-			_plugins.push_back(plugin);
 			for (auto& item : plugin->get_available())
 			{
-				auto it = _pipelines.insert(std::make_pair(item, *plugin.get()));
+				auto it = _pipelines.insert(std::make_pair(item, plugin));
 				if (!it.second)
 				{
 					std::ostringstream os; os << "Pipeline with id '" << item << "' already exists.";
@@ -52,7 +53,7 @@ namespace giste { namespace core {
 		auto it = _pipelines.find(id);
 		if (it != _pipelines.end())
 		{
-			return it->second.build(id);
+			return it->second->build(id);
 		}
 		std::ostringstream os; os << "Pipeline '" << id << "' not available.";
 		throw std::runtime_error(os.str());

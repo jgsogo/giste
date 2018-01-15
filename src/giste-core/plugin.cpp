@@ -11,7 +11,9 @@ namespace giste { namespace core {
 		// TODO: Get plugin version from...
 	}
 
-	Plugin::~Plugin() {}
+	Plugin::~Plugin()
+	{
+	}
 
 	const Version& Plugin::get_core_version() const
 	{

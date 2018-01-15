@@ -17,8 +17,11 @@ namespace giste { namespace core {
 			pipeline_t build(const std::string& id) const;
 
 		protected:
-			std::vector<std::shared_ptr<Plugin>> _plugins;
-			std::map<std::string, const Plugin&> _pipelines;
+			std::map<std::string, std::shared_ptr<Plugin>> _pipelines;
+
+		private:
+			typedef std::shared_ptr<Plugin>(pluginapi_create_t)();
+			std::vector<std::function<pluginapi_create_t>> _plugins;
 	};
 
 }}
