@@ -1,0 +1,3 @@
+
+plugins:
+ - ${CMAKE_INSTALL_PREFIX}/bin/plugins

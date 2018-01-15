@@ -20,6 +20,7 @@ class GisteRecipe(ConanFile):
             self.requires.add("Boost.Program_Options/1.65.1@bincrafters/stable")
             self.requires.add("Boost.System/1.65.1@bincrafters/stable")
             self.requires.add("Boost.Filesystem/1.65.1@bincrafters/stable")
+            self.requires.add("Boost.Dll/1.65.1@bincrafters/stable")
             self.requires.add("yaml-cpp/0.5.3@bincrafters/stable")
 
     def source(self):

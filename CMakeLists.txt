@@ -2,6 +2,13 @@
 project(giste)
 cmake_minimum_required(VERSION 2.8.12)
 
+# Project version info
+set(VERSION_MAJOR 0)
+set(VERSION_MINOR 0)
+set(VERSION_MICRO 0)
+set(VERSION_STAGE "alpha")
+set(VERSION_STAGE_NUM 0)
+
 # Require C++14 (at least)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED on)

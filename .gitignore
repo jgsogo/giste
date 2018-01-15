@@ -53,4 +53,4 @@ tests/config_tests.h
 Testing/
 conanbuildinfo.cmake
 conaninfo.txt
-
+src/giste-version.h

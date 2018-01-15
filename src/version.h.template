@@ -1,0 +1,13 @@
+
+#pragma once
+
+#include <cstdint>
+
+namespace giste
+{
+    const uint32_t VERSION_MAJOR = ${VERSION_MAJOR};
+    const uint32_t VERSION_MINOR = ${VERSION_MINOR};
+    const uint32_t VERSION_MICRO = ${VERSION_MICRO};
+    const std::string VERSION_STAGE = "${VERSION_STAGE}";
+    const uint32_t VERSION_STAGE_NUM = ${VERSION_STAGE_NUM};
+}

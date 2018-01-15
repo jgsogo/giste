@@ -4,19 +4,22 @@
 #include <boost/program_options.hpp>
 #include <boost/filesystem.hpp>
 
+#include "giste-core/config.h"
+#include "giste-core/plugin_handler.h"
+
 
 int main(int argc, char** argv)
 {
 	try
 	{
 		// Program options
-		boost::filesystem::path config_file;
+		boost::filesystem::path config_file("config.yaml");
 
 		// Work on program options
 		namespace po = boost::program_options;
 		po::options_description desc("Program usage", 1024, 512);
 		desc.add_options()
-			("config,c", po::value<boost::filesystem::path>(&config_file)->required(), "Config file to use")
+			("config,c", po::value<boost::filesystem::path>(&config_file)->required()->default_value(config_file), "Config file to use")
 			("help", "Print help message")
 			;
 
@@ -49,6 +52,14 @@ int main(int argc, char** argv)
 			std::cerr << "Config file " << config_file << " does not exists or it is inaccesible." << std::endl;
 			return -1;
 		}
+
+		// TODO: Playing around
+		std::ifstream infile(config_file.string());
+		giste::core::Config& cfg = giste::core::Config::parse(infile);
+
+		giste::core::PluginHandler plg_handler;
+		plg_handler.load("C:/Users/e047439/src/giste/install/bin/plugins");
+
 	}
 	catch(std::exception& e)
 	{

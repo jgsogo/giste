@@ -12,11 +12,12 @@ message(STATUS "Generate App: ${APP_NAME}")
 file(GLOB all_sources "*.h" "*.hpp" "*.cpp")
 
 add_executable(${APP_NAME} ${all_sources})
-set_target_properties(${APP_NAME} PROPERTIES LINKER_LANGUAGE CXX)
+set_target_properties(${APP_NAME} PROPERTIES LINKER_LANGUAGE CXX
+                                             VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_INSTALL_PREFIX}/bin")
 target_include_directories(${APP_NAME} PUBLIC ${Boost_INCLUDE_DIR})
-target_link_libraries(${APP_NAME} ${CONAN_LIBS})
+target_link_libraries(${APP_NAME} core ${CONAN_LIBS})
 
 install(TARGETS ${APP_NAME} COMPONENT executable
         DESTINATION "bin")
-
+install(FILES $<TARGET_PDB_FILE:${APP_NAME}> DESTINATION bin OPTIONAL)
 
