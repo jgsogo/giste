@@ -1,12 +1,12 @@
 from conans import ConanFile, CMake, tools
 
 
-class GisteRecipe(ConanFile):
-    name = "Giste"
+class ProtoZooRecipe(ConanFile):
+    name = "protozoo"
     version = "0.0.0"
     license = "-- think about it --"
-    url = "https://github.com/jgsogo/giste.git"
-    description = "Application/framework to work with corpus (PLN)"
+    url = "https://github.com/jgsogo/protozoo.git"
+    description = "Generic app framework "
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False]}
     default_options = "shared=False"

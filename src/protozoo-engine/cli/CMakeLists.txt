@@ -1,5 +1,5 @@
 
-project(GisteEngineCLI)
+project(ProtozooEngineCLI)
 cmake_minimum_required(VERSION 2.8.12)
 
 set(APP_NAME ${CMAKE_PROJECT_NAME}-engine-cli)

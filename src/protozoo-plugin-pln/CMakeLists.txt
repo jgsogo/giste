@@ -1,9 +1,9 @@
 
 cmake_minimum_required(VERSION 2.8.12)
 
-set(LIBRARY_NAME giste_pln)
+set(LIBRARY_NAME protozoo_pln)
 file(GLOB interface_SRC)
-add_definitions(-DGISTE_PLUGIN)
+add_definitions(-DPROTOZOO_PLUGIN)
 
 ## Common for every library
 file(GLOB all_sources "*.h" "*.hpp" "*.cpp")
