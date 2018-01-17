@@ -3,7 +3,10 @@
 
 #include <boost/program_options.hpp>
 #include <boost/filesystem.hpp>
+#include <spdlog/spdlog.h>
+#include <spdlog/fmt/ostr.h>
 
+#include "log_level_param.hpp"
 #include "giste-core/config.h"
 #include "giste-core/plugin_handler.h"
 
@@ -20,6 +23,7 @@ int main(int argc, char** argv)
 		po::options_description desc("Program usage", 1024, 512);
 		desc.add_options()
 			("config,c", po::value<boost::filesystem::path>(&config_file)->required()->default_value(config_file), "Config file to use")
+			("log-level,l", po::value<log_level>()->default_value(log_level(spdlog::level::info)), std::string("log level (" + log_level::options() + ")").c_str())
 			("help", "Print help message")
 			;
 
@@ -47,8 +51,14 @@ int main(int argc, char** argv)
 			return -1;
 		}
 
+		// Get logger level (initialize also child loggers)
+		spdlog::level::level_enum log_level = vm["log-level"].as<::log_level>()._level;
+		auto console = spdlog::stdout_color_mt("giste");
+		console->set_level(log_level);
+
 		if (!boost::filesystem::exists(config_file))
 		{
+			console->error("Config file {} does not exist or it is inaccesible.", config_file);
 			std::cerr << "Config file " << config_file << " does not exists or it is inaccesible." << std::endl;
 			return -1;
 		}

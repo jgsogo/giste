@@ -22,6 +22,7 @@ class GisteRecipe(ConanFile):
             self.requires.add("Boost.Filesystem/1.65.1@bincrafters/stable")
             self.requires.add("Boost.Dll/1.65.1@bincrafters/stable")
             self.requires.add("yaml-cpp/0.5.3@bincrafters/stable")
+            self.requires.add("spdlog/0.14.0@bincrafters/stable")
 
     def source(self):
         pass

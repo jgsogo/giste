@@ -54,3 +54,5 @@ Testing/
 conanbuildinfo.cmake
 conaninfo.txt
 src/giste-version.h
+*.pdb
+install/

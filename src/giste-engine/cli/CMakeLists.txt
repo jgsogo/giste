@@ -18,6 +18,6 @@ target_include_directories(${APP_NAME} PUBLIC ${Boost_INCLUDE_DIR})
 target_link_libraries(${APP_NAME} core ${CONAN_LIBS})
 
 install(TARGETS ${APP_NAME} COMPONENT executable
-        DESTINATION "bin")
+        DESTINATION bin)
 install(FILES $<TARGET_PDB_FILE:${APP_NAME}> DESTINATION bin OPTIONAL)
 

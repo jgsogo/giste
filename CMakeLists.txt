@@ -22,6 +22,7 @@ conan_basic_setup()
 # Install prefix
 set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_LIST_DIR}/install" CACHE INTERNAL "Default path to install")
 message(STATUS "Installation folder is '${CMAKE_INSTALL_PREFIX}'")
+set(CMAKE_INSTALL_PLUGINS "${CMAKE_INSTALL_PREFIX}/plugins" CACHE INTERNAL "Default path to plugins")
 
 # Files in subdirectories (Visual Studio IDE)
 set_property(GLOBAL PROPERTY USE_FODERS ON)
@@ -32,6 +33,10 @@ set_property(GLOBAL PROPERTY USE_FODERS ON)
 # Options
 option(BUILD_CLI "Build command line interfaces" ON)
 option(BUILD_TEST "Build tests for project" OFF)
+OPTION(SPDLOG_DEBUG_ON "Enable debug logging" OFF) # Disabled by default
+IF(SPDLOG_DEBUG_ON)
+    ADD_DEFINITIONS(-DSPDLOG_DEBUG_ON)
+ENDIF(SPDLOG_DEBUG_ON)
 
 # All sources will be under this directory ('src')
 include_directories("${CMAKE_CURRENT_LIST_DIR}/src")
