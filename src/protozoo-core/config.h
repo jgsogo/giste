@@ -5,7 +5,7 @@
 #include "core_export.h"
 
 
-namespace giste { namespace core {
+namespace protozoo { namespace core {
 
 	class CORE_EXPORT Config
 	{

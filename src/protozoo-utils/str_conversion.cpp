@@ -1,7 +1,7 @@
 
 #include "str_conversion.h"
 
-namespace giste {
+namespace protozoo {
 
 	//  - specialized for std::string
 	template <> std::string from_string<std::string>(const std::string& value) { return value; }

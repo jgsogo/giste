@@ -1,10 +1,10 @@
 
-#include "giste-core/config.h"
+#include "protozoo-core/config.h"
 
 #include "yaml-cpp/yaml.h"
 
 
-namespace giste { namespace core {
+namespace protozoo { namespace core {
 
 	Config::Config() {}
 

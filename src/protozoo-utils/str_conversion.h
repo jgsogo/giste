@@ -5,7 +5,7 @@
 #include "utils_export.h"
 
 
-namespace giste {
+namespace protozoo {
 
 	// Translations from/to strings.
 	template <typename T>

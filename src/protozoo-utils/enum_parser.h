@@ -4,10 +4,10 @@
 #include <map>
 #include <assert.h>
 #include <sstream>
-#include "giste-utils/str_conversion.h"
+#include "protozoo-utils/str_conversion.h"
 
 
-namespace giste {
+namespace protozoo {
 
 	template <typename T>
 	class enum_handler

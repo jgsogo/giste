@@ -9,10 +9,10 @@
 #include <boost/dll/alias.hpp>
 
 #include "core_export.h"
-#include "giste-core/version.h"
+#include "protozoo-core/version.h"
 
 
-namespace giste { namespace core {
+namespace protozoo { namespace core {
 
 	typedef std::function<std::string (const std::string&)> pipeline_t;
 
@@ -34,13 +34,13 @@ namespace giste { namespace core {
 			std::map<std::string, pipeline_t> _pipelines;
 	};
 
-#ifdef GISTE_PLUGIN
+#ifdef PROTOZOO_PLUGIN
 
 	__declspec(dllexport) std::shared_ptr<Plugin> instantiate(); // Implementation required for Plugins.
 
 	BOOST_DLL_ALIAS(
-		giste::core::instantiate, // <-- this function is exported with...
-		instantiate               // <-- ...this alias name
+		protozoo::core::instantiate, // <-- this function is exported with...
+		instantiate                  // <-- ...this alias name
 	)
 #endif
 

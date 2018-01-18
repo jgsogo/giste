@@ -1,0 +1,47 @@
+
+// Initializer/finalizer sample for MSVC and GCC/Clang.
+// 2010-2016 Joe Lowe. Released into the public domain.
+//  - Got here: https://stackoverflow.com/questions/1113409/attribute-constructor-equivalent-in-vc
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#include <spdlog/spdlog.h>
+#include <spdlog/fmt/ostr.h>
+
+
+#ifdef __cplusplus
+    #define INITIALIZER(f) \
+        static void f(void); \
+        struct f##_t_ { f##_t_(void) { f(); } }; static f##_t_ f##_; \
+        static void f(void)
+#elif defined(_MSC_VER)
+    #pragma section(".CRT$XCU",read)
+    #define INITIALIZER2_(f,p) \
+        static void f(void); \
+        __declspec(allocate(".CRT$XCU")) void (*f##_)(void) = f; \
+        __pragma(comment(linker,"/include:" p #f "_")) \
+        static void f(void)
+    #ifdef _WIN64
+        #define INITIALIZER(f) INITIALIZER2_(f,"")
+    #else
+        #define INITIALIZER(f) INITIALIZER2_(f,"_")
+    #endif
+#else
+    #define INITIALIZER(f) \
+        static void f(void) __attribute__((constructor)); \
+        static void f(void)
+#endif
+
+static void finalize(void)
+{
+    spdlog::get("protozoo")->trace("finalize DLL '${LIBRARY_NAME}'");
+}
+
+INITIALIZER( initialize)
+{
+    auto log = spdlog::stdout_color_mt("protozoo"); // Make logger available
+    log->trace("initialize DLL '${LIBRARY_NAME}'"); // Won't be printed because default log_level is 'INFO'
+
+    atexit( finalize);
+}

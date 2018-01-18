@@ -1,8 +1,8 @@
 
 #include "version.h"
-#include "giste-version.h"
+#include "protozoo-version.h"
 
-namespace giste { 
+namespace protozoo {
 
 	template <>
 	enum_handler<core::Version::STAGES>::enum_handler()

@@ -11,21 +11,28 @@
 #include <spdlog/fmt/ostr.h>
 
 
-namespace giste { namespace core {
+namespace protozoo { namespace core {
 
-	PluginHandler::PluginHandler()
+	struct PluginHandler::Impl
 	{
-		spdlog::get("giste")->debug("PluginHandler created");
+		PluginHandler::Impl() : log(spdlog::get("protozoo")) {}
+		std::shared_ptr<spdlog::logger> log;
+		std::map<std::string, std::shared_ptr<Plugin>> pipelines;
+	};
+
+	PluginHandler::PluginHandler() : _impl(new Impl)
+	{
+		_impl->log->debug("PluginHandler created");
 	}
 	PluginHandler::~PluginHandler()
 	{
-		spdlog::get("giste")->debug("PluginHandler destroyed");
-		_pipelines.clear();
+		_impl->log->debug("PluginHandler destroyed");
+		_impl->pipelines.clear();
 	}
 
 	void PluginHandler::load(const std::string& directory)
 	{
-		auto logger = spdlog::get("giste");
+		auto logger = _impl->log;
 		logger->debug("PluginHandler::load(directory='{}')", directory);
 		boost::filesystem::path plugins_directory(directory);
 		if (!boost::filesystem::is_directory(directory))
@@ -39,6 +46,8 @@ namespace giste { namespace core {
 
 		for (auto& entry : boost::make_iterator_range(boost::filesystem::directory_iterator(directory), {}))
 		{
+			if (boost::filesystem::extension(entry) == ".pdb") continue;
+
 			logger->debug("Load plugin at {}", entry);
 			creator = boost::dll::import_alias<pluginapi_create_t>(  // type of imported symbol must be explicitly specified
 				entry,                                               // path to library
@@ -48,12 +57,12 @@ namespace giste { namespace core {
 
 			_plugins.push_back(creator);
 			std::shared_ptr<Plugin> plugin = creator();
-			logger->info("Plugin NONAME {} loaded (giste core {})", plugin->get_plugin_version(), plugin->get_core_version());
+			logger->info("Plugin NONAME {} loaded (protozoo core {})", plugin->get_plugin_version(), plugin->get_core_version());
 
 			for (auto& item : plugin->get_available())
 			{
 				logger->debug("Register pipeline '{}'", item);
-				auto it = _pipelines.insert(std::make_pair(item, plugin));
+				auto it = _impl->pipelines.insert(std::make_pair(item, plugin));
 				if (!it.second)
 				{
 					std::ostringstream os; os << "Pipeline with id '" << item << "' already exists.";
@@ -65,9 +74,9 @@ namespace giste { namespace core {
 
 	pipeline_t PluginHandler::build(const std::string& id) const
 	{
-		spdlog::get("giste")->debug("PluginHandler::build(id='{}')", id);
-		auto it = _pipelines.find(id);
-		if (it != _pipelines.end())
+		spdlog::get("protozoo")->debug("PluginHandler::build(id='{}')", id);
+		auto it = _impl->pipelines.find(id);
+		if (it != _impl->pipelines.end())
 		{
 			return it->second->build(id);
 		}

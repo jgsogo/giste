@@ -7,8 +7,8 @@
 #include <spdlog/fmt/ostr.h>
 
 #include "log_level_param.hpp"
-#include "giste-core/config.h"
-#include "giste-core/plugin_handler.h"
+#include "protozoo-core/config.h"
+#include "protozoo-core/plugin_handler.h"
 
 
 int main(int argc, char** argv)
@@ -53,7 +53,7 @@ int main(int argc, char** argv)
 
 		// Get logger level (initialize also child loggers)
 		spdlog::level::level_enum log_level = vm["log-level"].as<::log_level>()._level;
-		auto console = spdlog::stdout_color_mt("giste");
+		auto console = spdlog::stdout_color_mt("protozoo");
 		console->set_level(log_level);
 
 		if (!boost::filesystem::exists(config_file))
@@ -65,10 +65,10 @@ int main(int argc, char** argv)
 
 		// TODO: Playing around
 		std::ifstream infile(config_file.string());
-		giste::core::Config& cfg = giste::core::Config::parse(infile);
+		protozoo::core::Config& cfg = protozoo::core::Config::parse(infile);
 
-		giste::core::PluginHandler plg_handler;
-		plg_handler.load("C:/Users/e047439/src/giste/install/bin/plugins");
+		protozoo::core::PluginHandler plg_handler;
+		plg_handler.load("C:/Users/e047439/src/giste/install/plugins");
 
 	}
 	catch(std::exception& e)

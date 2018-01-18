@@ -1,6 +1,8 @@
 
 include(GenerateExportHeader)
 
+set(CMAKE_TEMPLATES_DIR ${CMAKE_CURRENT_LIST_DIR})
+
 configure_file(version.h.template ${CMAKE_CURRENT_LIST_DIR}/protozoo-version.h)
 
 # Default configuration file

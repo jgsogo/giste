@@ -5,11 +5,11 @@
 #include <ostream>
 
 #include "core_export.h"
-#include "giste-utils/enum_parser.h"
-#include "giste-utils/str_conversion.h"
+#include "protozoo-utils/enum_parser.h"
+#include "protozoo-utils/str_conversion.h"
 
 
-namespace giste
+namespace protozoo
 { 
 	namespace core
 	{

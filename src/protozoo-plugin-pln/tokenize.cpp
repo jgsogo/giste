@@ -1,7 +1,7 @@
 
 #include "tokenize.h"
 
-namespace giste {
+namespace protozoo {
 	namespace pln {
 
 		std::string tokenize(const std::string&)

@@ -19,6 +19,8 @@ add_compile_options(-std=c++14) # CMake 2.8.12 or newer
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
+include(cmake/protozoo.cmake)
+
 # Install prefix
 set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_LIST_DIR}/install" CACHE INTERNAL "Default path to install")
 message(STATUS "Installation folder is '${CMAKE_INSTALL_PREFIX}'")

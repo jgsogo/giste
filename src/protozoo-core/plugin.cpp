@@ -4,7 +4,7 @@
 #include <boost/filesystem/path.hpp>
 
 
-namespace giste { namespace core {
+namespace protozoo { namespace core {
 
 	Plugin::Plugin()
 	{
