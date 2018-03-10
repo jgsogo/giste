@@ -19,5 +19,7 @@ target_link_libraries(${APP_NAME} core ${CONAN_LIBS})
 
 install(TARGETS ${APP_NAME} COMPONENT executable
         DESTINATION bin)
-install(FILES $<TARGET_PDB_FILE:${APP_NAME}> DESTINATION bin OPTIONAL)
+if(MSVC)
+    install(FILES $<TARGET_PDB_FILE:${APP_NAME}> DESTINATION bin OPTIONAL)
+endif()
 
