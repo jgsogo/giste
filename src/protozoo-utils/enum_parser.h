@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include <typeinfo>
 #include <map>
 #include <assert.h>
 #include <sstream>
@@ -64,14 +65,14 @@ namespace protozoo {
 			};
 
 		protected:
-			std::map<std::string, T> _values; // TODO: ¿boost::bimap? <- do not want to expose a boost dependency
+			std::map<std::string, T> _values; // TODO: boost::bimap? <- do not want to expose a boost dependency
 			std::map<T, std::string> _reverse;
 			std::map<std::string, T> _alternates; // From other strings to enums.
 	};
 
 	//  - specialized for enum types
 	template <typename T>
-	T from_string<T>(const std::string& value)
+	T from_string(const std::string& value)
 	{
 		return enum_handler<T>::instance().from_string(value);
 	}

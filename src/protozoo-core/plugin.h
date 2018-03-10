@@ -28,7 +28,7 @@ namespace protozoo { namespace core {
 			pipeline_t build(const std::string& id) const;
 
 		protected:
-			friend __declspec(dllexport) std::shared_ptr<Plugin> instantiate();
+			friend CORE_EXPORT std::shared_ptr<Plugin> instantiate();
 
 			Version _version;
 			std::map<std::string, pipeline_t> _pipelines;
@@ -36,7 +36,7 @@ namespace protozoo { namespace core {
 
 #ifdef PROTOZOO_PLUGIN
 
-	__declspec(dllexport) std::shared_ptr<Plugin> instantiate(); // Implementation required for Plugins.
+	CORE_EXPORT std::shared_ptr<Plugin> instantiate(); // Implementation required for Plugins.
 
 	BOOST_DLL_ALIAS(
 		protozoo::core::instantiate, // <-- this function is exported with...

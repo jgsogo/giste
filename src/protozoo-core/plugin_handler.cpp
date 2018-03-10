@@ -15,7 +15,7 @@ namespace protozoo { namespace core {
 
 	struct PluginHandler::Impl
 	{
-		PluginHandler::Impl() : log(spdlog::get("protozoo")) {}
+		Impl() : log(spdlog::get("protozoo")) {}
 		std::shared_ptr<spdlog::logger> log;
 		std::map<std::string, std::shared_ptr<Plugin>> pipelines;
 	};

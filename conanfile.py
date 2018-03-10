@@ -17,10 +17,10 @@ class ProtoZooRecipe(ConanFile):
         cli = True
         tests = True
         if cli:
-            self.requires.add("Boost.Program_Options/1.65.1@bincrafters/stable")
-            self.requires.add("Boost.System/1.65.1@bincrafters/stable")
-            self.requires.add("Boost.Filesystem/1.65.1@bincrafters/stable")
-            self.requires.add("Boost.Dll/1.65.1@bincrafters/stable")
+            self.requires.add("boost_program_options/1.66.0@bincrafters/stable")
+            self.requires.add("boost_system/1.66.0@bincrafters/stable")
+            self.requires.add("boost_filesystem/1.66.0@bincrafters/stable")
+            self.requires.add("boost_dll/1.66.0@bincrafters/stable")
             self.requires.add("yaml-cpp/0.5.3@bincrafters/stable")
             self.requires.add("spdlog/0.14.0@bincrafters/stable")
 

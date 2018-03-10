@@ -15,7 +15,7 @@ add_executable(${APP_NAME} ${all_sources})
 set_target_properties(${APP_NAME} PROPERTIES LINKER_LANGUAGE CXX
                                              VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_INSTALL_PREFIX}/bin")
 target_include_directories(${APP_NAME} PUBLIC ${Boost_INCLUDE_DIR})
-target_link_libraries(${APP_NAME} core ${CONAN_LIBS})
+target_link_libraries(${APP_NAME} core dl ${CONAN_LIBS})
 
 install(TARGETS ${APP_NAME} COMPONENT executable
         DESTINATION bin)

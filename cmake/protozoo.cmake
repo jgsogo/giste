@@ -1,6 +1,6 @@
 
 
-function(_add_protozoo_target LIBRARY_NAME PUBLIC_HEADERS LINK_LIBRARIES_LIST)
+function(_add_protozoo_target LIBRARY_NAME TYPE PUBLIC_HEADERS LINK_LIBRARIES_LIST)
     ## Common for every library
     file(GLOB all_sources "*.h" "*.hpp" "*.cpp")
 
@@ -11,7 +11,7 @@ function(_add_protozoo_target LIBRARY_NAME PUBLIC_HEADERS LINK_LIBRARIES_LIST)
 
     get_filename_component(LIBRARY_DIRNAME ${CMAKE_CURRENT_LIST_DIR} NAME)
 
-    add_library(${LIBRARY_NAME} ${all_sources})
+    add_library(${LIBRARY_NAME} ${TYPE} ${all_sources})
     target_link_libraries(${LIBRARY_NAME} ${LINK_LIBRARIES_LIST})
     generate_export_header(${LIBRARY_NAME})
     set_target_properties(${LIBRARY_NAME} PROPERTIES 
@@ -23,7 +23,7 @@ endfunction(_add_protozoo_target)
 
 function(add_protozoo_library LIBRARY_NAME PUBLIC_HEADERS LINK_LIBRARIES_LIST)
     message("Add protozoo library: '${LIBRARY_NAME}'")
-    _add_protozoo_target(${LIBRARY_NAME} "${PUBLIC_HEADERS}" "${LINK_LIBRARIES_LIST}")
+    _add_protozoo_target(${LIBRARY_NAME} "" "${PUBLIC_HEADERS}" "${LINK_LIBRARIES_LIST}")
 
     install(TARGETS ${LIBRARY_NAME} COMPONENT libraries
             ARCHIVE DESTINATION lib
@@ -39,11 +39,11 @@ endfunction(add_protozoo_library)
 function(add_protozoo_plugin PLUGIN_NAME PUBLIC_HEADERS LINK_LIBRARIES_LIST)
     message("Add protozoo plugin: '${PLUGIN_NAME}'")
     add_definitions(-DPROTOZOO_PLUGIN)
-    _add_protozoo_target(${PLUGIN_NAME} "" "${LINK_LIBRARIES_LIST}")
+    _add_protozoo_target(${PLUGIN_NAME} MODULE "" "${LINK_LIBRARIES_LIST}")
     
     install(TARGETS ${LIBRARY_NAME}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_PLUGINS}/lib
-        LIBRARY DESTINATION ${CMAKE_INSTALL_PLUGINS}/lib
+        LIBRARY DESTINATION ${CMAKE_INSTALL_PLUGINS}
         RUNTIME DESTINATION ${CMAKE_INSTALL_PLUGINS}
         PUBLIC_HEADER DESTINATION include/${LIBRARY_DIRNAME})
     if(MSVC)
