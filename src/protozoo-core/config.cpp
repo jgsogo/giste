@@ -6,15 +6,27 @@
 
 namespace protozoo { namespace core {
 
-	Config::Config() {}
+    struct Config::Impl
+    {
+        Impl(std::istream& is) : config(YAML::Load(is)) {}
+        YAML::Node config;
+    };
 
-	Config::~Config() {}
+	Config::Config(std::istream& is) : pImpl(new Impl(is)) {}
+
+	Config::~Config() = default;
 
 	Config& Config::parse(std::istream& is)
 	{
-		YAML::Node config = YAML::Load(is);
-		static Config cfg;
+		static Config cfg(is);
 		return cfg;
 	}
+
+    std::vector<std::filesystem::path> plugins_path() const
+    {
+        std::vector<std::filesystem::path> ret;
+        
+        return ret;
+    }
 
 }}

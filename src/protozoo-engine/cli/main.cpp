@@ -66,6 +66,7 @@ int main(int argc, char** argv)
 		// TODO: Playing around
 		std::ifstream infile(config_file.string());
 		protozoo::core::Config& cfg = protozoo::core::Config::parse(infile);
+        cfg.
 
 		protozoo::core::PluginHandler plg_handler;
 		plg_handler.load("C:/Users/e047439/src/giste/install/plugins");
