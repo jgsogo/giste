@@ -24,13 +24,13 @@ endfunction(_add_protozoo_target)
 function(add_protozoo_library LIBRARY_NAME PUBLIC_HEADERS LINK_LIBRARIES_LIST)
     message("Add protozoo library: '${LIBRARY_NAME}'")
     _add_protozoo_target(${LIBRARY_NAME} "" "${PUBLIC_HEADERS}" "${LINK_LIBRARIES_LIST}")
-
+    
     install(TARGETS ${LIBRARY_NAME} COMPONENT libraries
             ARCHIVE DESTINATION lib
             LIBRARY  DESTINATION lib
             RUNTIME DESTINATION bin
             PUBLIC_HEADER DESTINATION include/${LIBRARY_DIRNAME})
-    if(MSVC)
+    if(MSVC AND BUILD_SHARED_LIBS)
         install(FILES $<TARGET_PDB_FILE:${LIBRARY_NAME}> DESTINATION bin OPTIONAL)
     endif()
 endfunction(add_protozoo_library)

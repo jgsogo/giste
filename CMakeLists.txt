@@ -34,6 +34,7 @@ set_property(GLOBAL PROPERTY USE_FODERS ON)
 # add_definitions(-Wfatal-errors)
 
 # Options
+option(BUILD_SHARED_LIBS "Build the shared library" ON)
 option(BUILD_CLI "Build command line interfaces" ON)
 option(BUILD_TEST "Build tests for project" OFF)
 OPTION(SPDLOG_DEBUG_ON "Enable debug logging" OFF) # Disabled by default
